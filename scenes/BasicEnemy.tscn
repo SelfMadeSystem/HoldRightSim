@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/enemy/Enemy.png" type="Texture" id=1]
+[ext_resource path="res://scripts/ColTest.cs" type="Script" id=2]
+[ext_resource path="res://scripts/BasicEnemy.cs" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7.9, 7.9 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7.9, 0.9 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 7.9, 5 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 7.9, 5 )
+
+[node name="BasicEnemy" type="KinematicBody2D"]
+collision_layer = 0
+script = ExtResource( 3 )
+
+[node name="Enemy" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="Box" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="ColTest" type="KinematicBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="Box" type="CollisionShape2D" parent="ColTest"]
+shape = SubResource( 1 )
+
+[node name="Feet" type="KinematicBody2D" parent="."]
+collision_layer = 2048
+collision_mask = 4096
+
+[node name="Box" type="CollisionShape2D" parent="Feet"]
+position = Vector2( 0, 6.9 )
+shape = SubResource( 2 )
+
+[node name="Head" type="KinematicBody2D" parent="."]
+collision_layer = 4096
+collision_mask = 2048
+
+[node name="Box" type="CollisionShape2D" parent="Head"]
+position = Vector2( 0, -6.9 )
+shape = SubResource( 2 )
+
+[node name="Body" type="KinematicBody2D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Box" type="CollisionShape2D" parent="Body"]
+shape = SubResource( 3 )
+
+[node name="Damage" type="KinematicBody2D" parent="."]
+collision_layer = 16384
+collision_mask = 0
+
+[node name="Box" type="CollisionShape2D" parent="Damage"]
+position = Vector2( 0, 2.4 )
+shape = SubResource( 4 )

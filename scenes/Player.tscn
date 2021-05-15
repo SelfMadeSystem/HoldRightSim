@@ -1,0 +1,123 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://assets/player/Player_W_2.png" type="Texture" id=1]
+[ext_resource path="res://assets/player/Player_IC_0.png" type="Texture" id=2]
+[ext_resource path="res://assets/player/Player_IR_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/player/Player_IR_0.png" type="Texture" id=4]
+[ext_resource path="res://assets/player/Player_W_0.png" type="Texture" id=5]
+[ext_resource path="res://assets/player/Player_IC_1.png" type="Texture" id=6]
+[ext_resource path="res://assets/player/Player_W_1.png" type="Texture" id=7]
+[ext_resource path="res://assets/player/Player_W_5.png" type="Texture" id=8]
+[ext_resource path="res://assets/player/Player_W_3.png" type="Texture" id=9]
+[ext_resource path="res://assets/player/Player_W_4.png" type="Texture" id=10]
+[ext_resource path="res://scripts/Player.cs" type="Script" id=11]
+[ext_resource path="res://assets/player/Player_UpR.png" type="Texture" id=12]
+[ext_resource path="res://assets/player/Player_UpC.png" type="Texture" id=13]
+[ext_resource path="res://assets/player/Player_DnR.png" type="Texture" id=14]
+[ext_resource path="res://assets/player/Player_DnC.png" type="Texture" id=15]
+[ext_resource path="res://scripts/ColTest.cs" type="Script" id=16]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "idle_r",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "down_r",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 7 ), ExtResource( 1 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "walk",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "idle_c",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "up_r",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "up_c",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "down_c",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7.9, 7.9 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 7.9, 0.9 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 7.9, 5 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 7.9, 5 )
+
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 1024
+collision_mask = 33
+script = ExtResource( 11 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+z_index = 1
+frames = SubResource( 1 )
+animation = "idle_c"
+playing = true
+
+[node name="Box" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Feet" type="KinematicBody2D" parent="."]
+collision_layer = 2048
+collision_mask = 4096
+
+[node name="Box" type="CollisionShape2D" parent="Feet"]
+position = Vector2( 0, 6.9 )
+shape = SubResource( 3 )
+
+[node name="Head" type="KinematicBody2D" parent="."]
+collision_layer = 4096
+collision_mask = 2048
+
+[node name="Box" type="CollisionShape2D" parent="Head"]
+position = Vector2( 0, -6.9 )
+shape = SubResource( 3 )
+
+[node name="Body" type="KinematicBody2D" parent="."]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="Box" type="CollisionShape2D" parent="Body"]
+shape = SubResource( 4 )
+
+[node name="ColTest" type="KinematicBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 16 )
+
+[node name="Collision" type="CollisionShape2D" parent="ColTest"]
+shape = SubResource( 2 )
+
+[node name="Center" type="Area2D" parent="."]
+collision_layer = 16384
+collision_mask = 16384
+
+[node name="Box" type="CollisionShape2D" parent="Center"]
+shape = SubResource( 5 )
+
+[connection signal="area_entered" from="Center" to="." method="_on_Center_area_entered"]
+[connection signal="area_exited" from="Center" to="." method="_on_Center_area_exited"]
