@@ -3,9 +3,9 @@
 [ext_resource path="res://assets/special/SwSpring_0.png" type="Texture" id=1]
 [ext_resource path="res://assets/special/SwSpring_2.png" type="Texture" id=2]
 [ext_resource path="res://assets/special/SwSpring_1.png" type="Texture" id=3]
-[ext_resource path="res://scripts/SwSpring.cs" type="Script" id=4]
-[ext_resource path="res://scripts/ColTest.cs" type="Script" id=5]
-[ext_resource path="res://scripts/SwSpringSide.cs" type="Script" id=6]
+[ext_resource path="res://scripts/entities/SwSpring.cs" type="Script" id=4]
+[ext_resource path="res://scripts/entities/ColTest.cs" type="Script" id=5]
+[ext_resource path="res://scripts/entities/SwSpringSide.cs" type="Script" id=6]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

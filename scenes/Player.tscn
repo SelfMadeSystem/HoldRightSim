@@ -10,12 +10,12 @@
 [ext_resource path="res://assets/player/Player_W_5.png" type="Texture" id=8]
 [ext_resource path="res://assets/player/Player_W_3.png" type="Texture" id=9]
 [ext_resource path="res://assets/player/Player_W_4.png" type="Texture" id=10]
-[ext_resource path="res://scripts/Player.cs" type="Script" id=11]
+[ext_resource path="res://scripts/entities/Player.cs" type="Script" id=11]
 [ext_resource path="res://assets/player/Player_UpR.png" type="Texture" id=12]
 [ext_resource path="res://assets/player/Player_UpC.png" type="Texture" id=13]
 [ext_resource path="res://assets/player/Player_DnR.png" type="Texture" id=14]
 [ext_resource path="res://assets/player/Player_DnC.png" type="Texture" id=15]
-[ext_resource path="res://scripts/ColTest.cs" type="Script" id=16]
+[ext_resource path="res://scripts/entities/ColTest.cs" type="Script" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -76,6 +76,7 @@ script = ExtResource( 11 )
 z_index = 1
 frames = SubResource( 1 )
 animation = "idle_c"
+frame = 1
 playing = true
 
 [node name="Box" type="CollisionShape2D" parent="."]
