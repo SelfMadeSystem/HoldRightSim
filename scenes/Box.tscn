@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/block/Box.png" type="Texture" id=1]
+[ext_resource path="res://scripts/entities/ColTest.cs" type="Script" id=2]
+[ext_resource path="res://scripts/entities/Box.cs" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7.5, 7.5 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7.9, 7.9 )
+
+[node name="Box" type="KinematicBody2D"]
+collision_layer = 0
+script = ExtResource( 3 )
+
+[node name="Box" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Collision" type="KinematicBody2D" parent="."]
+collision_layer = 8225
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="Box" type="CollisionShape2D" parent="Collision"]
+shape = SubResource( 1 )
+
+[node name="ColTest" type="KinematicBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="Box" type="CollisionShape2D" parent="ColTest"]
+shape = SubResource( 1 )
+
+[node name="Box2" type="Sprite" parent="."]
+texture = ExtResource( 1 )

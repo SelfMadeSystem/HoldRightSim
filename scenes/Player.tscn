@@ -1,71 +1,54 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://assets/player/Player_W_2.png" type="Texture" id=1]
-[ext_resource path="res://assets/player/Player_IC_0.png" type="Texture" id=2]
-[ext_resource path="res://assets/player/Player_IR_1.png" type="Texture" id=3]
-[ext_resource path="res://assets/player/Player_IR_0.png" type="Texture" id=4]
-[ext_resource path="res://assets/player/Player_W_0.png" type="Texture" id=5]
-[ext_resource path="res://assets/player/Player_IC_1.png" type="Texture" id=6]
-[ext_resource path="res://assets/player/Player_W_1.png" type="Texture" id=7]
-[ext_resource path="res://assets/player/Player_W_5.png" type="Texture" id=8]
-[ext_resource path="res://assets/player/Player_W_3.png" type="Texture" id=9]
-[ext_resource path="res://assets/player/Player_W_4.png" type="Texture" id=10]
+[ext_resource path="res://assets/player/Player.png" type="Texture" id=1]
+[ext_resource path="res://assets/player/Player_Walk2.png" type="Texture" id=2]
+[ext_resource path="res://assets/player/Player_Up1.png" type="Texture" id=3]
+[ext_resource path="res://assets/player/Player_Down1.png" type="Texture" id=4]
+[ext_resource path="res://assets/player/Player_Jump1.png" type="Texture" id=5]
+[ext_resource path="res://assets/player/Player_Idle1.png" type="Texture" id=6]
+[ext_resource path="res://assets/player/Player_Walk1.png" type="Texture" id=7]
 [ext_resource path="res://scripts/entities/Player.cs" type="Script" id=11]
-[ext_resource path="res://assets/player/Player_UpR.png" type="Texture" id=12]
-[ext_resource path="res://assets/player/Player_UpC.png" type="Texture" id=13]
-[ext_resource path="res://assets/player/Player_DnR.png" type="Texture" id=14]
-[ext_resource path="res://assets/player/Player_DnC.png" type="Texture" id=15]
 [ext_resource path="res://scripts/entities/ColTest.cs" type="Script" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 6 ) ],
 "loop": true,
-"name": "idle_r",
-"speed": 2.0
+"name": "default",
+"speed": 1.0
 }, {
-"frames": [ ExtResource( 14 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "down_r",
+"name": "up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 7 ), ExtResource( 1 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "walk",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "jump",
 "speed": 4.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "idle_c",
-"speed": 2.0
-}, {
-"frames": [ ExtResource( 12 ) ],
-"loop": true,
-"name": "up_r",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "up_c",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 15 ) ],
-"loop": true,
-"name": "down_c",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 7.9, 7.9 )
+extents = Vector2( 6.5, 7.9 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 7.9, 0.9 )
+extents = Vector2( 6.5, 0.9 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 7.9, 5 )
+extents = Vector2( 6.5, 5 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 7.9, 5 )
+extents = Vector2( 6.5, 5 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 1024
@@ -73,9 +56,10 @@ collision_mask = 33
 script = ExtResource( 11 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.5, 0 )
 z_index = 1
 frames = SubResource( 1 )
-animation = "idle_c"
+animation = "jump"
 frame = 1
 playing = true
 

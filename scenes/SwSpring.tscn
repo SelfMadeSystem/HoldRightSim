@@ -29,7 +29,7 @@ animations = [ {
 extents = Vector2( 7.9, 7.9 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 7, 0.9 )
+extents = Vector2( 7, 1 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 7.9, 7.9 )
@@ -45,7 +45,6 @@ script = ExtResource( 4 )
 frames = SubResource( 1 )
 
 [node name="Box" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 2 )
 
 [node name="RSide" type="Area2D" parent="."]
@@ -54,7 +53,7 @@ collision_mask = 9216
 script = ExtResource( 6 )
 
 [node name="Box" type="CollisionShape2D" parent="RSide"]
-position = Vector2( 6.9, 0 )
+position = Vector2( 7, 0 )
 rotation = 1.5708
 shape = SubResource( 3 )
 one_way_collision = true
@@ -66,7 +65,7 @@ collision_mask = 9216
 script = ExtResource( 6 )
 
 [node name="Box" type="CollisionShape2D" parent="LSide"]
-position = Vector2( -6.9, 0 )
+position = Vector2( -7, 0 )
 rotation = -1.5708
 shape = SubResource( 3 )
 one_way_collision = true

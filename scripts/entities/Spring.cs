@@ -13,6 +13,7 @@ public class Spring : Entity, Collidable
 
 	public override void EntityHit(Entity entity, KinematicCollision2D collision)
 	{
+		if (entity.Velocity.y < 0) return;
 		entity.ResetJumpFinishJump = true;
 		entity.MaxJumpTime = entity.DefMaxJumpTime * 1.25f;
 		entity.StartJump = (int)(entity.DefStartJump * 1.25f);

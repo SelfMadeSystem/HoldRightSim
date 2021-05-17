@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class Player : Entity
 { // Todo: Set friction, accel, min & max speed, start & end jump, max jump time, etc.
 	[Export]
-	public int Mass = 16;
+	public int Mass = 32;
 	[Export]
 	public float FloatDelay = 0.1f;
 	[Export]
@@ -273,7 +273,13 @@ public class Player : Entity
 	{
 		base.DoCollisionStuff(touched);
 		if (touched == null) return;
-		(touched.Collider as RigidBody2D)?.ApplyCentralImpulse(-touched.Normal * Mass);
+		if (_inputs.r)
+		{
+			Entity collided = (touched.Collider as Entity);
+			if (collided == null) collided = ((touched.Collider as Node)?.GetParent() as Entity);
+			if (collided == null) return;
+			collided.Velocity.x += (-touched.Normal.x * Mass);
+		}
 	}
 
 	public void Damage()
@@ -294,33 +300,29 @@ public class Player : Entity
 		var animatedSprite = GetNode<AnimatedSprite>("Sprite");
 		if (_ground)
 		{
-			switch (_inputs.h)
+			if (_inputs.j && _jumpTime <= 0)
 			{
-				default:
-					{
-						animatedSprite.Animation = _stopped >= LookStopTime ? "idle_c" : "idle_r";
-						break;
-					}
-				case -1:
-					{
-						animatedSprite.FlipH = true;
-						animatedSprite.Animation = "walk"; break;
-					}
-				case 1:
-					{
-						animatedSprite.FlipH = false;
-						animatedSprite.Animation = "walk";
-						break;
-					}
+				animatedSprite.SpeedScale = 1;
+				animatedSprite.Animation = "jump";
+				animatedSprite.Frame = 0;
 			}
-			animatedSprite.SpeedScale = _inputs.r && _inputs.h != 0 ? 2 : 1;
+			else
+			if (_inputs.h == 0)
+			{
+				animatedSprite.SpeedScale = _stopped < LookStopTime ? 2 : 1;
+				animatedSprite.Animation = "default";
+			}
+			else
+			{
+				animatedSprite.FlipH = _inputs.h < 0;
+				animatedSprite.Animation = "walk";
+				animatedSprite.SpeedScale = _inputs.r && _inputs.h != 0 ? 2 : 1;
+			}
 		}
 		else
 		{
 			if (Math.Abs(Velocity.x) > 0.1) animatedSprite.FlipH = Velocity.x < 0;
-			animatedSprite.Animation = Velocity.y >= 0 ?
-			_stopped >= LookStopTime ? "down_c" : "down_r" :
-			_stopped >= LookStopTime ? "up_c" : "up_r";
+			animatedSprite.Animation = Velocity.y >= 0 ? "down" : "up";
 		}
 		animatedSprite.Scale = _squish;
 		animatedSprite.Offset = new Vector2(0, (1 - _squish.y) * animatedSprite.Frames.GetFrame(animatedSprite.Animation, animatedSprite.Frame).GetHeight());

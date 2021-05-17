@@ -48,4 +48,10 @@ public class BasicEnemy : Entity
 	{
 		GetParent().RemoveChild(this);
 	}
+	public override void UpdateAnimation(float delta)
+	{
+		var animatedSprite = GetNode<AnimatedSprite>("Sprite");
+		animatedSprite.SpeedScale = Math.Abs(Velocity.x / (DefMaxSpeed * delta));
+		animatedSprite.FlipH = _hDir < 0;
+	}
 }

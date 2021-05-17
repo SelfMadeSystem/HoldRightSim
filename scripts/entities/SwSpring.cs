@@ -37,8 +37,9 @@ public class SwSpring : Entity
 
 	public void Boing(Node body, int side)
 	{
+		GD.Print("HIII.", body.Name, body?.GetParent<Node>().Name);
 		if (body == this) return;
-		Entity entity = body as Entity ?? body?.GetParent<Entity>();
+		Entity entity = body as Entity ?? (body?.GetParent() as Entity);
 		if (entity == null || (entity is Player && entity != body)) return;
 		_sproingTime = 0.25f;
 		entity.Velocity = new Vector2(side * Force.x, entity.Velocity.y + (entity.Velocity.y >= -MaxY && (!VertGroundOnly || entity.Ground)? Force.y : 0));
